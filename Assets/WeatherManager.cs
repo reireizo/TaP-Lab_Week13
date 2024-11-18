@@ -13,7 +13,7 @@ public class WeatherManager : MonoBehaviour
     public void Start()
     {
         jsonApi = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",us&mode=json&appid=550a6618486c8002a8c4f81bf99ca84e";
-        StartCoroutine(GetWeatherXML(OnXMLDataLoaded));
+        StartCoroutine(GetWeatherJSON(OnJSONDataLoaded));
     }
 
     private IEnumerator CallAPI(string url, Action<string> callback)
@@ -36,12 +36,12 @@ public class WeatherManager : MonoBehaviour
         }
     }
 
-    public IEnumerator GetWeatherXML(Action<string> callback)
+    public IEnumerator GetWeatherJSON(Action<string> callback)
     {
         return CallAPI(jsonApi, callback);
     }
 
-    public void OnXMLDataLoaded(string data)
+    public void OnJSONDataLoaded(string data)
     {
         Debug.Log(data);
     }
