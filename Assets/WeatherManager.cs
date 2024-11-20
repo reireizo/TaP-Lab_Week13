@@ -43,7 +43,23 @@ public class WeatherManager : MonoBehaviour
 
     public void OnJSONDataLoaded(string data)
     {
+        WeatherInfo weatherinfo = JsonUtility.FromJson<WeatherInfo>(data);
         Debug.Log(data);
+        Debug.Log(weatherinfo.weather.id);
     }
 
+}
+
+[Serializable]
+public class WeatherInfo
+{
+    public Weather weather;
+}
+
+[Serializable]
+public class Weather
+{
+    public int id;
+    public string main;
+    public string description;
 }
