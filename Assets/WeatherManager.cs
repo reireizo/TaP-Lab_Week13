@@ -7,11 +7,12 @@ using UnityEngine.Networking;
 
 public class WeatherManager : MonoBehaviour 
 {
+    public Light sun;
+
     [SerializeField]
     private string cityName = "Orlando";
     private string jsonApi;
     [SerializeField]private string weatherType;
-    [SerializeField]private int visibility;
     private WeatherInfo weatherInfo;
 
     [SerializeField]
@@ -29,10 +30,12 @@ public class WeatherManager : MonoBehaviour
         if (weatherType == "Rain")
         {
             RenderSettings.skybox = skyboxes[0];
+            sun.color = new Color((159f/255f), (228f/255f), (214f/255f), 1);
         }
         else if (weatherType == "Clouds")
         {
             RenderSettings.skybox = skyboxes[1];
+            sun.color = new Color((214f/255f), 1, (250f/255f), 1);
         }
         else if (weatherType == "Clear")
         {
@@ -41,6 +44,7 @@ public class WeatherManager : MonoBehaviour
         else if (weatherType == "Snow")
         {
             RenderSettings.skybox= skyboxes[3];
+            sun.intensity = 3;
         }
     }
 
@@ -72,10 +76,9 @@ public class WeatherManager : MonoBehaviour
     public void OnJSONDataLoaded(string data)
     {
         weatherInfo = JsonUtility.FromJson<WeatherInfo>(data);
-        //Debug.Log(data);
+        Debug.Log(data);
         Debug.Log(weatherInfo.weather[0].main + " " + weatherInfo.visibility);
         weatherType = weatherInfo.weather[0].main;
-        visibility = weatherInfo.visibility;
     }
 
 }
