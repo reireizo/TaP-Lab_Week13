@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -13,10 +14,34 @@ public class WeatherManager : MonoBehaviour
     [SerializeField]private int visibility;
     private WeatherInfo weatherInfo;
 
-    public void Start()
+    [SerializeField]
+    private Material[] skyboxes;
+
+
+    public void Awake()
     {
         jsonApi = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",us&mode=json&appid=550a6618486c8002a8c4f81bf99ca84e";
         StartCoroutine(GetWeatherJSON(OnJSONDataLoaded));
+    }
+
+    private void Start()
+    {
+        if (weatherType == "Rain")
+        {
+            RenderSettings.skybox = skyboxes[0];
+        }
+        else if (weatherType == "Clouds")
+        {
+            RenderSettings.skybox = skyboxes[1];
+        }
+        else if (weatherType == "Clear")
+        {
+            RenderSettings.skybox = skyboxes[2];
+        }
+        else if (weatherType == "Snow")
+        {
+            RenderSettings.skybox= skyboxes[3];
+        }
     }
 
     private IEnumerator CallAPI(string url, Action<string> callback)
@@ -47,7 +72,7 @@ public class WeatherManager : MonoBehaviour
     public void OnJSONDataLoaded(string data)
     {
         weatherInfo = JsonUtility.FromJson<WeatherInfo>(data);
-        Debug.Log(data);
+        //Debug.Log(data);
         Debug.Log(weatherInfo.weather[0].main + " " + weatherInfo.visibility);
         weatherType = weatherInfo.weather[0].main;
         visibility = weatherInfo.visibility;
