@@ -9,6 +9,9 @@ public class WeatherManager : MonoBehaviour
     [SerializeField]
     private string cityName = "Orlando";
     private string jsonApi;
+    [SerializeField]private string weatherType;
+    [SerializeField]private int visibility;
+    private WeatherInfo weatherInfo;
 
     public void Start()
     {
@@ -43,9 +46,11 @@ public class WeatherManager : MonoBehaviour
 
     public void OnJSONDataLoaded(string data)
     {
-        WeatherInfo weatherinfo = JsonUtility.FromJson<WeatherInfo>(data);
+        weatherInfo = JsonUtility.FromJson<WeatherInfo>(data);
         Debug.Log(data);
-        Debug.Log(weatherinfo.weather.id);
+        Debug.Log(weatherInfo.weather[0].main + " " + weatherInfo.visibility);
+        weatherType = weatherInfo.weather[0].main;
+        visibility = weatherInfo.visibility;
     }
 
 }
@@ -53,13 +58,12 @@ public class WeatherManager : MonoBehaviour
 [Serializable]
 public class WeatherInfo
 {
-    public Weather weather;
+    public Weather[] weather;
+    public int visibility;
 }
 
 [Serializable]
 public class Weather
 {
-    public int id;
     public string main;
-    public string description;
 }
