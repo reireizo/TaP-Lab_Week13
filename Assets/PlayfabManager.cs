@@ -47,5 +47,13 @@ public class PlayfabManager
         };
         PlayFabClientAPI.GetUserData(request, OnDataSuccess, OnDataFailure);
     }
-    private void O
+    private void OnDataSuccess(GetUserDataRequest result)
+    {
+        // Process player data here
+        Debug.Log("Player data loaded successfully");
+    }
+    private void OnDataFailure(PlayFabError error)
+    {
+        Debug.LogError("Failed to load player data: " + error.ErrorMessage);
+    }
 }
