@@ -1,12 +1,14 @@
 using PlayFab.ClientModels;
 using PlayFab;
 using UnityEngine;
+using System;
 
 public class PlayfabManager 
 {
     private LoginManager loginManager;
     private string savedEmailKey = "SavedEmail";
     private string userEmail;
+   
 
     private void Start()
     {
@@ -47,6 +49,12 @@ public class PlayfabManager
         };
         PlayFabClientAPI.GetUserData(request, OnDataSuccess, OnDataFailure);
     }
+
+    private void OnDataSuccess(GetUserDataResult result)
+    {
+        throw new NotImplementedException();
+    }
+
     private void OnDataSuccess(GetUserDataRequest result)
     {
         // Process player data here
