@@ -5,7 +5,7 @@ using System;
 
 public class PlayfabManager 
 {
-    private LoginManager loginManager;
+    /*private LoginManager loginManager;
     private string savedEmailKey = "SavedEmail";
     private string userEmail;
    
@@ -63,5 +63,5 @@ public class PlayfabManager
     private void OnDataFailure(PlayFabError error)
     {
         Debug.LogError("Failed to load player data: " + error.ErrorMessage);
-    }
+    }*/
 }
